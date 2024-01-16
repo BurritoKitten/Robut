@@ -25,9 +25,7 @@ int main()
 
     while (cycleNum < 5)
     {
-        robut.vectorToControl(100, turnDir);
-        robut.updateMovement();
-        turnDir += 1;
+        robut.move(turnDir++, 50);
         if (turnDir == 360)
         {
             turnDir = 0;
@@ -36,25 +34,9 @@ int main()
         // Allow other tasks to run
         this_thread::sleep_for(10);
     }
-
-    cycleNum = 0;
-
-    while (cycleNum < 5)
-    {
-        robut.vectorToControl(100, turnDir);
-        robut.updateMovement();
-        turnDir += 1;
-        if (turnDir == 360)
-        {
-            turnDir = 0;
-            cycleNum += 1;
-        }
-        // Allow other tasks to run
-        this_thread::sleep_for(10);
-    }
-
-    while (1)
-    {
-        this_thread::sleep_for(10);
-    }
+    robut.stop();
+    this_thread::sleep_for(1000);
+    robut.turn(right);
+    this_thread::sleep_for(3000);
+    robut.stop();
 }
