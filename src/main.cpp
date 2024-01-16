@@ -21,22 +21,10 @@ robutMovement robut = robutMovement(motor0, motor1, motor2);
 int main()
 {
     Brain.Screen.printAt(10, 50, "Hello V5");
-    waitUntil(buton.pressing());
 
     while (cycleNum < 5)
     {
-        robut.move(turnDir++, 50);
-        if (turnDir == 360)
-        {
-            turnDir = 0;
-            cycleNum += 1;
-        }
-        // Allow other tasks to run
-        this_thread::sleep_for(10);
+        waitUntil(buton.pressing());
+        robut.moveDistance(100, 0, 15);
     }
-    robut.stop();
-    this_thread::sleep_for(1000);
-    robut.turn(right);
-    this_thread::sleep_for(3000);
-    robut.stop();
 }

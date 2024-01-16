@@ -1,7 +1,9 @@
 #include <math.h>    /* cos */
-#include <algorithm> /* max */
+//#include <algorithm> /* max */
 
 #define PI 3.14159265
+#define WHEELDIA 10.5
+#define WHEELCIR 33.67
 
 using namespace vex;
 
@@ -9,21 +11,32 @@ using namespace vex;
 class robutMovement
 {
 private:
-    double m0_ = 0;
-    double m1_ = 0;
-    double m2_ = 0;
+    double facing = 0;
     motor motor0, motor1, motor2;
 
 public:
     robutMovement(motor motor0in, motor motor1in, motor motor2in) : motor0(motor0in), motor1(motor1in), motor2(motor2in) {}
 
-    double m0() { return m0_; }
-    double m1() { return m1_; }
-    double m2() { return m2_; }
+    void moveDistance(double dist, double absDirection, double speed)
+    {
+        double direction = - absDirection - facing;
+        double m0_ = cos((direction + 210 - 60) * PI / 180);
+        double m1_ = cos((direction + 330 - 60) * PI / 180);
+        double m2_ = cos((direction + 90 - 60) * PI / 180);
+        double fullrot = dist/(WHEELCIR);
+        motor0.spinFor(directionType::fwd, fullrot*m0_, rotationUnits::rev, speed*m0_, velocityUnits::pct, false);
+        motor1.spinFor(directionType::fwd, fullrot*m1_, rotationUnits::rev, speed*m1_, velocityUnits::pct, false);
+        motor2.spinFor(directionType::fwd, fullrot*m2_, rotationUnits::rev, speed*m2_, velocityUnits::pct, true);
 
-    //void moveDistance(int dist, int direction, double speed)
+    }
+
+
+
+
     //void moveDistance(int dist, int direction)
 
+
+/*
     void move(int direction, double speed, int turnSpeed)
     {
         m0_ = speed * cos((direction + 210) * PI / 180);
@@ -95,4 +108,6 @@ public:
         motor1.spin(fwd, -m1_, pct);
         motor2.spin(fwd, -m2_, pct);
     }
+    */
 };
+
