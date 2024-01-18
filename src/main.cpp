@@ -15,15 +15,10 @@ int cycleNum = 0;
 motor motor0 = motor(PORT1, ratio18_1, false);
 motor motor1 = motor(PORT2, ratio18_1, false);
 motor motor2 = motor(PORT3, ratio18_1, false);
-bumper buton = bumper(Brain.ThreeWirePort.A);
+bumper buton = bumper(Brain.ThreeWirePort.H);
 robutMovement robut = robutMovement(motor0, motor1, motor2);
 bool killed = false;
-/*
-int killSwitch()
-{
-    if (){}
-}
-*/
+
 void kill()
 {
     killed = true;
@@ -39,7 +34,9 @@ int main()
     while (!killed)
     {
         waitUntil(buton.pressing());
-        buton.pressed(kill);
-        robut.moveDistance(100, 0, 15);
+        this_thread::sleep_for(250);
+        buton.pressed(kill); //DO NOT REMOVE
+        robut.turn(360, 30); //CODE
+        this_thread::sleep_for(10); //DO NOT REMOVE
     }
 }

@@ -7,7 +7,7 @@
 // 18.5/(sqrt(3))*4
 #define BASEDIA 42.7
 #define BASECIR 134.2
-#define ROTPERDEGREE 0.01107151107151107151107151107151
+#define ROTPERDEGREE 0.00545
 
 using namespace vex;
 
