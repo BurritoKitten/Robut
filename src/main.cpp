@@ -17,14 +17,29 @@ motor motor1 = motor(PORT2, ratio18_1, false);
 motor motor2 = motor(PORT3, ratio18_1, false);
 bumper buton = bumper(Brain.ThreeWirePort.A);
 robutMovement robut = robutMovement(motor0, motor1, motor2);
-
+bool killed = false;
+/*
+int killSwitch()
+{
+    if (){}
+}
+*/
+void kill()
+{
+    killed = true;
+    motor0.stop();
+    motor1.stop();
+    motor2.stop();
+    return;
+}
 int main()
 {
     Brain.Screen.printAt(10, 50, "Hello V5");
 
-    while (cycleNum < 5)
+    while (!killed)
     {
         waitUntil(buton.pressing());
+        buton.pressed(kill);
         robut.moveDistance(100, 0, 15);
     }
 }

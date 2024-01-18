@@ -4,6 +4,9 @@
 #define PI 3.14159265
 #define WHEELDIA 10.5
 #define WHEELCIR 33.67
+//18.5/(sqrt(3))*4
+#define BASEDIA 42.7 
+#define BASECIR 134.2
 
 using namespace vex;
 
