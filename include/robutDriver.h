@@ -1,15 +1,44 @@
-#include <math.h> /* cos */
-// #include <algorithm> /* max */
+#include <math.h> /* cos, atan */
 
 #define PI 3.14159265
 #define WHEELDIA 10.5
 #define WHEELCIR 33.67
-// 18.5/(sqrt(3))*4
-#define BASEDIA 42.7
-#define BASECIR 134.2
 #define ROTPERDEGREE 0.00545
 
 using namespace vex;
+
+class remote
+{
+private:
+    controller Controller;
+
+public:
+    remote(controller ControllerIn) : Controller(ControllerIn) {}
+
+    double vectorAngle()
+    {
+        double y = Controller.Axis3.position();
+        double x = Controller.Axis4.position();
+        double direction = 90 - atan(y / x) / PI * 180;
+        if (x < 0)
+        {
+            direction += 180;
+        }
+        return direction;
+    }
+
+    double vectorStrength()
+    {
+        double y = Controller.Axis3.position();
+        double x = Controller.Axis4.position();
+        return sqrt(y * y + x * x);
+    }
+
+    double turnStrength()
+    {
+        return Controller.Axis2.position();
+    }
+};
 
 class robutMovement
 {
